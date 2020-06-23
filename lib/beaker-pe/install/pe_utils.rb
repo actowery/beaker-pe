@@ -82,6 +82,7 @@ module Beaker
             special_nodes << host if host != nil && subset.include?(host)
           end
           real_agents = agents - special_nodes
+          special_nodes = special_nodes.delete_if { |host| host['template'] =~ /-preload/ }
           real_agents = real_agents.delete_if{ |host| !subset.include?(host) }
           special_nodes + real_agents
         end
